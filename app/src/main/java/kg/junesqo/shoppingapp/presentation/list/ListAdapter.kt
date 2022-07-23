@@ -3,6 +3,7 @@ package kg.junesqo.shoppingapp.presentation.list
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kg.junesqo.shoppingapp.R
 import kg.junesqo.shoppingapp.databinding.ItemShopDisabledBinding
@@ -13,8 +14,10 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var list = listOf<ShopItem>()
         set(value) {
+            val callback = ShopListDiffCallback(list,value)
+            val diffResult = DiffUtil.calculateDiff(callback)
+            diffResult.dispatchUpdatesTo(this)
             field = value
-            notifyDataSetChanged()
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -71,6 +74,7 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
                 shopItem.enable = false
                 notifyItemChanged(adapterPosition)
             }
+
             root.setOnLongClickListener {
                 val item = list[position]
                 Log.e("TAG", "Item: $item")
@@ -88,6 +92,7 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
                 shopItem.enable = true
                 notifyItemChanged(adapterPosition)
             }
+
             root.setOnLongClickListener {
                 val item = list[position]
                 Log.e("TAG", "Item: $item")
