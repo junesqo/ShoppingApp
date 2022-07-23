@@ -1,4 +1,4 @@
-package kg.junesqo.shoppingapp.presentation
+package kg.junesqo.shoppingapp.presentation.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
