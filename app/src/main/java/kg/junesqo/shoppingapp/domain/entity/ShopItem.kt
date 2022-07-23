@@ -3,7 +3,7 @@ package kg.junesqo.shoppingapp.domain.entity
 data class ShopItem(
     val name: String?,
     val count: Int?,
-    val enable: Boolean,
+    var enable: Boolean,
     var id: Int = UNDEFINED_ID
 ){
     companion object {
