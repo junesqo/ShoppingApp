@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ShoppingApp</string>
+    <string name="empty_et">Enter name, field is empty!</string>
 </resources>

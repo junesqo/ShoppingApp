@@ -1,5 +1,6 @@
 package kg.junesqo.shoppingapp.domain
 
+import androidx.lifecycle.LiveData
 import kg.junesqo.shoppingapp.domain.entity.ShopItem
 
 interface ShopListRepository {
@@ -13,6 +14,6 @@ interface ShopListRepository {
     fun getShopItem(shopItemId: Int): ShopItem
 
     //можно менять
-    fun getShopList(): List<ShopItem>
+    fun getShopList(): LiveData<List<ShopItem>>
 
 }
