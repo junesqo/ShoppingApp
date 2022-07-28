@@ -20,7 +20,8 @@ import kotlin.random.Random
 class ListActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityListBinding
-    private var adapter = ListAdapter()
+    private var adapter = ListAdapter(this::onItemClick)
+
 
 
     var startForResult: ActivityResultLauncher<Intent>? = null
@@ -42,12 +43,18 @@ class ListActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
     }
 
+    private fun onItemClick(shopItem: ShopItem){
+        shopItem.enable = !shopItem.enable
+        viewModel.editShopItem(shopItem)
+    }
+
     private fun initListener() {
         binding.fab.setOnClickListener {
             val intent = Intent(this, DetailActivity::class.java)
             startForResult?.launch(intent)
         }
     }
+
 
     private fun initAdapter() {
         binding.recyclerList.adapter = adapter
@@ -68,6 +75,7 @@ class ListActivity : AppCompatActivity() {
                 viewModel.deleteShopItem(item)
 
             }
+
         }
 
         val itemTouchHelper = ItemTouchHelper(callback)

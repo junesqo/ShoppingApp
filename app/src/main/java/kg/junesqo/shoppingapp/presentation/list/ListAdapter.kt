@@ -10,7 +10,7 @@ import kg.junesqo.shoppingapp.databinding.ItemShopDisabledBinding
 import kg.junesqo.shoppingapp.databinding.ItemShopEnabledBinding
 import kg.junesqo.shoppingapp.domain.entity.ShopItem
 
-class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null) :
+class ListAdapter(private val onItemClick: (shopItem: ShopItem) -> Unit?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var list = listOf<ShopItem>()
         set(value) {
@@ -71,7 +71,7 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
             binding.tvName.text = shopItem.name
             binding.tvCount.text = shopItem.count.toString()
             root.setOnClickListener {
-                shopItem.enable = false
+                onItemClick(shopItem)
                 notifyItemChanged(adapterPosition)
             }
 

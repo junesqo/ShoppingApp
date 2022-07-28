@@ -11,6 +11,8 @@ class ShopListRepositoryImpl : ShopListRepository {
     private val shopList = mutableListOf<ShopItem>()
     private var autoIncrementId = 0
 
+    private val dao = App.appDataBase.shopDao()
+
     private val mapper = ShopListMapper()
 
     override fun addShopItem(shopItem: ShopItem) {
@@ -18,21 +20,28 @@ class ShopListRepositoryImpl : ShopListRepository {
 //            shopItem.id = autoIncrementId++
 //        }
 //        shopList.add(shopItem)
-        App.appDataBase.shopDao().addShopItem(mapper.mapEntityToDbModel(shopItem))
+        dao.addShopItem(mapper.mapEntityToDbModel(shopItem))
     }
 
     override fun deleteShopItem(shopItem: ShopItem) {
-        shopList.remove(shopItem)
+        dao.deleteShopItem(mapper.mapEntityToDbModel(shopItem))
+//        shopList.remove(shopItem)
     }
 
     override fun editShopItem(shopItem: ShopItem) {
         val oldItem = getShopItem(shopItem.id)
         deleteShopItem(oldItem)
         addShopItem(shopItem)
+//        val oldItem = getShopItem(shopItem.id)
+//        deleteShopItem(oldItem)
+//        addShopItem(shopItem)
     }
 
+
     override fun getShopItem(shopItemId: Int): ShopItem {
-        return shopList[shopItemId]
+        return mapper.mapDbModelToEntity(dao.getShopItem(shopItemId))
+//        return App.appDataBase.shopDao().getShopItem(shopItemId)
+//        return shopList[shopItemId]
     }
 
     override fun getShopList(): LiveData<List<ShopItem>> = Transformations.map(

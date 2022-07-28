@@ -28,8 +28,9 @@ class MainViewModel: ViewModel() {
     }
 
     fun editShopItem(shopItem: ShopItem) {
-        val newItem = ShopItem("tomato", 5, enable = !shopItem.enable, 0)
-        editShopItemUseCase.editShopItem(newItem)
+        editShopItemUseCase.editShopItem(shopItem)
+//        val newItem = ShopItem("tomato", 5, enable = !shopItem.enable, 0)
+//        editShopItemUseCase.editShopItem(newItem)
     }
 
     fun getShopList() = getShopListUseCase.getShopList()
